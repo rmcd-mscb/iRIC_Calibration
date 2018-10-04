@@ -1,0 +1,1 @@
+Search.setIndex({docnames:["index"],envversion:55,filenames:["index.rst"],objects:{},objnames:{},objtypes:{},terms:{index:0,modul:0,page:0,search:0},titles:["Welcome to python calibration routines for iRIC solvers\u2019s documentation!"],titleterms:{calibr:0,document:0,indic:0,iric:0,python:0,routin:0,solver:0,tabl:0,welcom:0}})
