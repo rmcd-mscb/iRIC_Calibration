@@ -12,21 +12,22 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-# import os
-# import sys
-# sys.path.insert(0, os.path.abspath('.'))
+import os
+import sys
+sys.path.insert(0, os.path.abspath('.'))
+sys.path.insert(0, os.path.abspath('../src'))
 
 
 # -- Project information -----------------------------------------------------
 
-project = 'python calibration routines for iRIC solvers'
+project = 'iRIC Calibration'
 copyright = '2018, rmcd'
 author = 'rmcd'
 
 # The short X.Y version
 version = ''
 # The full version, including alpha/beta/rc tags
-release = '0.0.1'
+release = '0.1'
 
 
 # -- General configuration ---------------------------------------------------
@@ -40,6 +41,7 @@ release = '0.0.1'
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
+    'sphinx.ext.viewcode',
     'sphinx.ext.githubpages',
 ]
 
@@ -64,11 +66,11 @@ language = None
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
-# This pattern also affects html_static_path and html_extra_path .
+# This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 # The name of the Pygments (syntax highlighting) style to use.
-pygments_style = 'sphinx'
+pygments_style = None
 
 
 # -- Options for HTML output -------------------------------------------------
@@ -103,7 +105,7 @@ html_static_path = ['_static']
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'pythoncalibrationroutinesforiRICsolversdoc'
+htmlhelp_basename = 'iRICCalibrationdoc'
 
 
 # -- Options for LaTeX output ------------------------------------------------
@@ -130,7 +132,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'pythoncalibrationroutinesforiRICsolvers.tex', 'python calibration routines for iRIC solvers Documentation',
+    (master_doc, 'iRICCalibration.tex', 'iRIC Calibration Documentation',
      'rmcd', 'manual'),
 ]
 
@@ -140,7 +142,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'pythoncalibrationroutinesforiricsolvers', 'python calibration routines for iRIC solvers Documentation',
+    (master_doc, 'iriccalibration', 'iRIC Calibration Documentation',
      [author], 1)
 ]
 
@@ -151,10 +153,28 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'pythoncalibrationroutinesforiRICsolvers', 'python calibration routines for iRIC solvers Documentation',
-     author, 'pythoncalibrationroutinesforiRICsolvers', 'One line description of project.',
+    (master_doc, 'iRICCalibration', 'iRIC Calibration Documentation',
+     author, 'iRICCalibration', 'One line description of project.',
      'Miscellaneous'),
 ]
+
+
+# -- Options for Epub output -------------------------------------------------
+
+# Bibliographic Dublin Core info.
+epub_title = project
+
+# The unique identifier of the text. This can be a ISBN number
+# or the project homepage.
+#
+# epub_identifier = ''
+
+# A unique identification for the text.
+#
+# epub_uid = ''
+
+# A list of files that should not be packed into the epub file.
+epub_exclude_files = ['search.html']
 
 
 # -- Extension configuration -------------------------------------------------

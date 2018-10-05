@@ -9,7 +9,6 @@ if "%SPHINXBUILD%" == "" (
 )
 set SOURCEDIR=.
 set BUILDDIR=_build
-set SPHINXPROJ=pythoncalibrationroutinesforiRICsolvers
 
 if "%1" == "" goto help
 
