@@ -8,7 +8,7 @@
     </MeasuredDatas>
     <PostProcessors>
         <PostProcessor type="post2dwindow" index="3" backgroundColor="#ffffff" visible="true" maximized="false" left="30" top="30" width="700" height="500">
-            <Camera positionX="197.126" positionY="971.665" positionZ="200" focalpointX="197.126" focalpointY="971.665" focalpointZ="0" roll="0" parallelscale="1477.83" parallelprojection="true"/>
+            <Camera positionX="197.126" positionY="971.665" positionZ="200" focalpointX="197.126" focalpointY="971.665" focalpointZ="0" roll="0" parallelscale="2618.07" parallelprojection="true"/>
             <DataModel ZScale="1" isExpanded="false">
                 <GridType checkState="2" isExpanded="true" name="fastmech">
                     <LookupTables>
@@ -26,7 +26,7 @@
                         <GeoDataGroup checkState="2" isExpanded="true" name="Elevation"/>
                     </GeoData>
                     <Zones>
-                        <Zone checkState="2" isExpanded="false" name="iRICZone">
+                        <Zone checkState="2" isExpanded="true" name="iRICZone">
                             <Shape checkState="2" isExpanded="false">
                                 <Shape color="#000000" shape="0" indexVisible="false" indexColor="#000000"/>
                             </Shape>
@@ -78,7 +78,7 @@
                                 </Particles>
                             </ParticleGroup>
                             <CellFlagGroup checkState="2" isExpanded="false" opacityPercent="50"/>
-                            <GraphGroup checkState="2" isExpanded="false" direction="0" region="0" regionStart="0" regionEnd="326" regionSkip="1" regionIndices="" offsetDirection="1" drawGridLine="true" gridColor="#a0a0a4" gridWidth="1" gridPattern="65535" solution="" scale="1" graphColor="#000000" graphWidth="1" graphPattern="65535" valueFix="0"/>
+                            <GraphGroup checkState="2" isExpanded="false" direction="0" region="0" regionStart="0" regionEnd="326" regionSkip="1" regionIndices="0" offsetDirection="1" drawGridLine="true" gridColor="#a0a0a4" gridWidth="1" gridPattern="65535" solution="" scale="1" graphColor="#000000" graphWidth="1" graphPattern="65535" valueFix="0"/>
                         </Zone>
                     </Zones>
                 </GridType>
@@ -94,19 +94,19 @@
     <Backgrounds>
         <BackgroundImageInfo filename="GreenRiver.jpg" angle="0" positionX="-1570.15" positionY="446.004" scale="0.768204" visibility="true" fixed="false"/>
     </Backgrounds>
-    <PreProcessorWindow backgroundColor="#ffffff" visible="true" maximized="true" left="0" top="0" width="1414" height="377">
-        <Camera positionX="107.992" positionY="1827.15" positionZ="200" focalpointX="107.992" focalpointY="1827.15" focalpointZ="0" roll="0" parallelscale="2581.81" parallelprojection="true"/>
+    <PreProcessorWindow backgroundColor="#ffffff" visible="true" maximized="false" left="0" top="0" width="2533" height="1254">
+        <Camera positionX="107.992" positionY="2117.59" positionZ="200" focalpointX="107.992" focalpointY="2117.59" focalpointZ="0" roll="0" parallelscale="2368.62" parallelprojection="true"/>
         <DataModel isExpanded="false" mappingMode="0" geoMappingMode="0" tempAutoRegion="1" tempStreamWiseLength="4" tempCrossStreamLength="1" numExpansion="3" weightExponent="1">
             <BackgroundImages checkState="2" isExpanded="true"/>
             <GridType checkState="2" isExpanded="false" name="fastmech">
                 <ColorMaps>
                     <ColorMap name="Elevation" autoRange="true" autoMin="440.73" autoMax="553.68" manualMin="0" manualMax="0" colorMap="0"/>
-                    <ColorMap name="roughness" autoRange="true" autoMin="0.0045" autoMax="0.012" manualMin="0" manualMax="0" colorMap="0"/>
-                    <ColorMap name="sanddepth" autoRange="true" autoMin="0.0029" autoMax="0.0031" manualMin="0" manualMax="0" colorMap="0"/>
+                    <ColorMap name="roughness" autoRange="true" autoMin="0" autoMax="1" manualMin="0" manualMax="0" colorMap="0"/>
+                    <ColorMap name="sanddepth" autoRange="true" autoMin="0" autoMax="1" manualMin="0" manualMax="0" colorMap="0"/>
                     <ColorMap name="sandfraction" autoRange="true" autoMin="0.0029" autoMax="0.0031" manualMin="0" manualMax="0" colorMap="0"/>
-                    <ColorMap name="vegroughness" autoRange="true" autoMin="0.0029" autoMax="0.0031" manualMin="0" manualMax="0" colorMap="0"/>
+                    <ColorMap name="vegroughness" autoRange="true" autoMin="-0.0001" autoMax="0.0001" manualMin="0" manualMax="0" colorMap="0"/>
                 </ColorMaps>
-                <GeoData checkState="2" isExpanded="true" visible="true" titleFontFamily="0" titleFontColor="#000000" titleFontSize="10" titleFontIsBold="false" titleFontIsItalic="false" titleFontIsShadow="false" labelFontFamily="0" labelFontColor="#000000" labelFontSize="10" labelFontIsBold="false" labelFontIsItalic="false" labelFontIsShadow="false">
+                <GeoData checkState="0" isExpanded="true" visible="true" titleFontFamily="0" titleFontColor="#000000" titleFontSize="10" titleFontIsBold="false" titleFontIsItalic="false" titleFontIsShadow="false" labelFontFamily="0" labelFontColor="#000000" labelFontSize="10" labelFontIsBold="false" labelFontIsItalic="false" labelFontIsShadow="false">
                     <GeoDataGroup checkState="2" isExpanded="true" name="Elevation">
                         <GeoData checkState="2" isExpanded="false" type="realPointmap" name="pointset1" caption="Points1" mapped="true" needremeshing="0" hidebreaklines="0" representation="0" opacityPercent="50" pointSize="3"/>
                         <GeoData checkState="2" isExpanded="false" type="realBackground" name="background" caption="Default" mapped="true"/>
@@ -120,6 +120,8 @@
                         <GeoData checkState="2" isExpanded="false" type="realBackground" name="background" caption="Default" mapped="true"/>
                     </GeoDataGroup>
                     <GeoDataGroup checkState="2" isExpanded="true" name="sanddepth">
+                        <GeoData checkState="2" isExpanded="false" type="realPolygon" name="polygon2" caption="Polygon2" mapped="true" color="#000000" opacityPercent="50" mapping="0"/>
+                        <GeoData checkState="2" isExpanded="false" type="realPolygon" name="polygon1" caption="Polygon1" mapped="true" color="#000000" opacityPercent="50" mapping="0"/>
                         <GeoData checkState="2" isExpanded="false" type="realBackground" name="background" caption="Default" mapped="true"/>
                     </GeoDataGroup>
                     <GeoDataGroup checkState="2" isExpanded="true" name="sandfraction">
@@ -140,10 +142,10 @@
                             <NodeAttribute name="roughness" checkState="0" isExpanded="false" isCustomModified="0">
                                 <Contour ContourType="3" NumberOfDivision="10"/>
                             </NodeAttribute>
-                            <NodeAttribute name="vegroughness" checkState="2" isExpanded="false" isCustomModified="0">
+                            <NodeAttribute name="vegroughness" checkState="0" isExpanded="false" isCustomModified="0">
                                 <Contour ContourType="3" NumberOfDivision="10"/>
                             </NodeAttribute>
-                            <NodeAttribute name="sanddepth" checkState="0" isExpanded="false" isCustomModified="0">
+                            <NodeAttribute name="sanddepth" checkState="2" isExpanded="false" isCustomModified="0">
                                 <Contour ContourType="3" NumberOfDivision="10"/>
                             </NodeAttribute>
                             <NodeAttribute name="sandfraction" checkState="0" isExpanded="false" isCustomModified="0">
@@ -168,7 +170,7 @@
             <TmsBackground checkState="2" isExpanded="true" target=""/>
         </DataModel>
     </PreProcessorWindow>
-    <SolverConsoleWindow visible="true" maximized="false" left="30" top="30" width="700" height="500" backgroundColor="#c8c8c8"/>
+    <SolverConsoleWindow visible="false" maximized="false" left="30" top="30" width="2350" height="1022" backgroundColor="#c8c8c8"/>
     <PostProcessorFactory>
         <WindowCount name="post2dwindow" value="3"/>
     </PostProcessorFactory>

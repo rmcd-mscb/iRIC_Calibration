@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<iRICProject version="3.0.2.6226" solverName="fastmech" solverVersion="1.0.1000" offsetX="0" offsetY="0">
+<iRICProject version="3.0.4.6230" solverName="fastmech" solverVersion="1.0.1000" offsetX="0" offsetY="0">
     <CgnsFileList current="Case1">
         <CgnsFileEntry filename="Case1" comment=""/>
     </CgnsFileList>
@@ -78,7 +78,7 @@
                                 </Particles>
                             </ParticleGroup>
                             <CellFlagGroup checkState="2" isExpanded="false" opacityPercent="50"/>
-                            <GraphGroup checkState="2" isExpanded="false" direction="0" region="0" regionStart="0" regionEnd="326" regionSkip="1" regionIndices="" offsetDirection="1" drawGridLine="true" gridColor="#a0a0a4" gridWidth="1" gridPattern="65535" solution="" scale="1" graphColor="#000000" graphWidth="1" graphPattern="65535" valueFix="0"/>
+                            <GraphGroup checkState="2" isExpanded="false" direction="0" region="0" regionStart="0" regionEnd="326" regionSkip="1" regionIndices="0" offsetDirection="1" drawGridLine="true" gridColor="#a0a0a4" gridWidth="1" gridPattern="65535" solution="" scale="1" graphColor="#000000" graphWidth="1" graphPattern="65535" valueFix="0"/>
                         </Zone>
                     </Zones>
                 </GridType>
@@ -101,10 +101,10 @@
             <GridType checkState="2" isExpanded="false" name="fastmech">
                 <ColorMaps>
                     <ColorMap name="Elevation" autoRange="true" autoMin="440.73" autoMax="553.68" manualMin="0" manualMax="0" colorMap="0"/>
-                    <ColorMap name="roughness" autoRange="true" autoMin="0.0029" autoMax="0.0031" manualMin="0" manualMax="0" colorMap="0"/>
+                    <ColorMap name="roughness" autoRange="true" autoMin="0" autoMax="0.003" manualMin="0" manualMax="0" colorMap="0"/>
                     <ColorMap name="sanddepth" autoRange="true" autoMin="0.0029" autoMax="0.0031" manualMin="0" manualMax="0" colorMap="0"/>
                     <ColorMap name="sandfraction" autoRange="true" autoMin="0.0029" autoMax="0.0031" manualMin="0" manualMax="0" colorMap="0"/>
-                    <ColorMap name="vegroughness" autoRange="true" autoMin="0.003" autoMax="0.012" manualMin="0" manualMax="0" colorMap="0"/>
+                    <ColorMap name="vegroughness" autoRange="true" autoMin="0" autoMax="0.012" manualMin="0" manualMax="0" colorMap="0"/>
                 </ColorMaps>
                 <GeoData checkState="2" isExpanded="true" visible="true" titleFontFamily="0" titleFontColor="#000000" titleFontSize="10" titleFontIsBold="false" titleFontIsItalic="false" titleFontIsShadow="false" labelFontFamily="0" labelFontColor="#000000" labelFontSize="10" labelFontIsBold="false" labelFontIsItalic="false" labelFontIsShadow="false">
                     <GeoDataGroup checkState="2" isExpanded="true" name="Elevation">
@@ -116,7 +116,6 @@
                         <GeoData checkState="2" isExpanded="false" type="realBackground" name="background" caption="Default" mapped="true"/>
                     </GeoDataGroup>
                     <GeoDataGroup checkState="2" isExpanded="true" name="vegroughness">
-                        <GeoData checkState="2" isExpanded="false" type="realPolygon" name="polygon1" caption="Polygon1" mapped="true" color="#000000" opacityPercent="50" mapping="0"/>
                         <GeoData checkState="2" isExpanded="false" type="realBackground" name="background" caption="Default" mapped="true"/>
                     </GeoDataGroup>
                     <GeoDataGroup checkState="2" isExpanded="true" name="sanddepth">
@@ -168,7 +167,7 @@
             <TmsBackground checkState="2" isExpanded="true" target=""/>
         </DataModel>
     </PreProcessorWindow>
-    <SolverConsoleWindow visible="true" maximized="false" left="30" top="30" width="700" height="500" backgroundColor="#c8c8c8"/>
+    <SolverConsoleWindow visible="false" maximized="false" left="30" top="30" width="700" height="500" backgroundColor="#c8c8c8"/>
     <PostProcessorFactory>
         <WindowCount name="post2dwindow" value="3"/>
     </PostProcessorFactory>

@@ -13,8 +13,8 @@ plt.ion()
 
 fig.show()
 fig.canvas.draw()
-for cdind, Cd in enumerate(np.arange(cal.cdmin, cal.cdmax, cal.cdinc)):
-    simres = cal.update()
+for cdind, cd in enumerate(np.arange(cal.cdmin, cal.cdmax, cal.cdinc)):
+    simres = cal.update_const(cdind, cd)
 
     ax.plot(simres[:cdind,0], simres[:cdind,1], '-o')  # fit the line
     plt.pause(3)

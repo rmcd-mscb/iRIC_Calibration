@@ -4,3 +4,4 @@
 *.cgn
 /test/cal_const_cd/*
 /test/cal_var_cd/*
+/notebooks
