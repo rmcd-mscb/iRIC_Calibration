@@ -34,7 +34,7 @@ for cdind0, cd0 in enumerate(x):
         tcdind[1] = cdind1
         numind = len(tcdind)
         # simres = cal.update_var(cdind0, cd0, cdind1, cd1)
-        simres = cal.update_var2(tcount, tcd)
+        simres = cal.update_var(tcount, tcd)
         tmpz[cdind0,cdind1] = simres.loc[tcount, 'rmse']
         # tmpz =np.reshape(simres['rmse'].values,(numx,numy))
         cs = ax.contourf(X, Y, tmpz, 20, cmap=plt.cm.bone_r)

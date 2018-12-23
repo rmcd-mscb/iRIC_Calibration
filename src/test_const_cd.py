@@ -9,6 +9,7 @@ import time
 
 cal = fm_cal('../test/test_constcd_config.ini')
 cal.initialize()
+#cal.create_ini_file()
 
 fig = plt.figure()
 ax = fig.add_subplot(111)
@@ -27,7 +28,7 @@ tcount = 0
 for cdind0, cd0 in enumerate(x):
     tcd[0] = cd0
     tcdind[0] = cdind0
-    simres = cal.update_var2(tcount, tcd)
+    simres = cal.update_var(tcount, tcd)
     # if tcount > 0:
     ax.plot(simres.loc[:cdind0, 'cd0'], simres.loc[:cdind0, 'rmse'], '-o')  # fit the line
 

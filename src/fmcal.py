@@ -8,17 +8,16 @@ import pandas as pd
 from itertools import count
 from shutil import copyfile
 
-import sys
 
-class  fm_cal:
+class fm_cal:
     def __init__(self, file=''):
-        if file != '' :
+        if file != '':
             config = configparser.ConfigParser()
             config.read(file)
             self.meas_wse = np.genfromtxt(config.get('Params', 'meas_WSE_File'),
-                                         delimiter=',', skip_header=1)
+                                          delimiter=',', skip_header=1)
             self.nummeas = self.meas_wse.shape[0]
-            self.cdtype = config.getint('Params', 'cdtype')
+            self.cdtype = 1  # config.getint('Params', 'cdtype')
             self.mcdmin = {}
             for key in config['mcdmin']:
                 self.mcdmin[key] = config.getfloat('mcdmin', key)
@@ -30,12 +29,12 @@ class  fm_cal:
                 self.mcdinc[key] = config.getfloat('mcdinc', key)
             self.mnumcds = len(self.mcdinc)
 
-            rng = range(0,int((self.mnumcds) / 2) + 1)
-            self.dfcols = ['index'] + ['cd'+str(i) for i in rng] + ['Discharge']
+            rng = range(0, int(self.mnumcds / 2) + 1)
+            self.dfcols = ['index'] + ['cd' + str(i) for i in rng] + ['Discharge']
             self.resdf = pd.DataFrame(columns=self.dfcols)
 
-            self.xoffset = config.getfloat('Params', 'xoffset')
-            self.yoffset = config.getfloat('Params', 'yoffset')
+            self.xoffset = 0  # config.getfloat('Params', 'xoffset')
+            self.yoffset = 0  # config.getfloat('Params', 'yoffset')
             self.Q = config.getfloat('Params', 'Q')
             self.H_DS = config.getfloat('Params', 'H_DS')
             self.H_US = config.getfloat('Params', 'H_US')
@@ -54,26 +53,39 @@ class  fm_cal:
     def create_ini_file(self, file=''):
         if file == '': file = 'config.ini'
         cfgfile = open(file, 'w')
-        Config = configparser.ConfigParser()
+        Config = configparser.ConfigParser(allow_no_value=True)
         Config.add_section('mcdmin')
-        Config.set('mcdmin','0','0.004')
+        Config.set('mcdmin', '# One or more pairs of Id = min. roughness value.', None)
+        Config.set('mcdmin', '0', '0.004')
         Config.add_section('mcdmax')
+        Config.set('mcdmax', '# One or more pairs of Id = max. roughness value.', None)
         Config.set('mcdmax', '0', '0.010')
         Config.add_section('mcdinc')
+        Config.set('mcdinc', '# One or more pairs of Id = increment values.', None)
         Config.set('mcdinc', '0', '0.00025')
         Config.add_section('Params')
-        Config.set('Params','meas_WSE_File',r'..\test\GR_wse.csv')
-        Config.set('Params','cdtype', '1')
-        Config.set('Params', 'xoffset', '0')
-        Config.set('Params', 'yoffset', '0')
+        Config.set('Params', '# Relative or complete path\\file.csv to measured water-surface elevation file.', None)
+        Config.set('Params', 'meas_WSE_File', r'..\test\GR_wse.csv')
+        #        Config.set('Params','cdtype', '1')
+        #        Config.set('Params', 'xoffset', '0')
+        #        Config.set('Params', 'yoffset', '0')
+        Config.set('Params', '# Discharge Value', None)
         Config.set('Params', 'Q', '241.0')
+        Config.set('Params', '# Downstream Stage Value', None)
         Config.set('Params', 'H_DS', '447.1')
-        Config.set('Params', 'H_US', '449')
+        Config.set('Params', '# Set initial water-surface elevation boundary condition', None)
+        Config.set('Params', '# iniType == 1 use upstream elevation (H_US)', None)
+        Config.set('Params', '# iniType == 2 use step-backwater (OneDCD = 1-D Cd for step-backwater)', None)
         Config.set('Params', 'iniType', '2')
+        Config.set('Params', 'H_US', '449')
         Config.set('Params', 'OneDCD', '.015')
-        Config.set('Params', 'working_dir', r'..\test\cal_const_cd')
+        Config.set('Params', '# Complete path to FaSTMECH solver', None)
         Config.set('Params', 'solver_path', r';C:\Users\rmcd\iRICt\solvers\fastmech')
+        Config.set('Params', '# Relative (to python code) or complete path to working directory where files/results are stored', None)
+        Config.set('Params', 'working_dir', r'..\test\cal_const_cd')
+        Config.set('Params', '# Relative (to working directory) or complete path to base iRIC project (folder)', None)
         Config.set('Params', 'base_file', r'..\test_const_cd\Case1.cgn')
+        Config.set('Params', '# File used to output results - save to working directory')
         Config.set('Params', 'rmse_file', 'test_rmse.csv')
         Config.write(cfgfile)
         cfgfile.close()
@@ -90,63 +102,7 @@ class  fm_cal:
         # self.add_fastmech_libs_to_path()
         self.stat_init = True
 
-    def update_var(self, index0, cd0, index1, cd1):
-        if not self.stat_init:
-            print('Error: call initialize() before update()')
-        else:
-            # index = next(self.stat_numcalpts)
-            # tcd = self.cds[index]
-            hdf5_file_name = next(self.g)
-            copyfile(self.base_file, hdf5_file_name)
-            self.fastmech_change_var_cd(hdf5_file_name, cd0, cd1)
-            self.fastmech_BCs(hdf5_file_name)
-            for path in self.execute(["Fastmech.exe", hdf5_file_name]):
-                print(path, end="")
-
-            SGrid = vtk.vtkStructuredGrid()
-            self.create_vtk_structured_grid(SGrid, hdf5_file_name)
-            cellLocator2D = vtk.vtkCellLocator()
-            cellLocator2D.SetDataSet(SGrid)
-            # cellLocator2D.SetNumberOfCellsPerBucket(10);
-            cellLocator2D.BuildLocator()
-
-            WSE_2D = SGrid.GetPointData().GetScalars('WSE')
-            IBC_2D = SGrid.GetPointData().GetScalars('IBC')
-            Velocity_2D = SGrid.GetPointData().GetScalars('Velocity')
-            simwse = np.zeros(self.meas_wse.shape[0])
-            measwse = np.zeros(self.meas_wse.shape[0])
-            for counter, line in enumerate(self.meas_wse):
-                point2D = [line[0] - self.xoffset, line[1] - self.yoffset, 0.0]
-                pt1 = [line[0] - self.xoffset, line[1] - self.yoffset, 10.0]
-                pt2 = [line[0] - self.xoffset, line[1] - self.yoffset, -10]
-                idlist1 = vtk.vtkIdList()
-                cellLocator2D.FindCellsAlongLine(pt1, pt2, 0.0, idlist1)
-                cellid = idlist1.GetId(0)
-                # cellid = cellLocator2D.FindCell(point2D)
-                # print (isCellWet(SGrid, point2D, cellid, IBC_2D))
-                tmpwse = self.getCellValue(SGrid, point2D, cellid, WSE_2D)
-                if index0 == index1 == 0:
-                    self.meas_and_sim_wse_var[counter, 0, 0] = line[2]
-                #     print counter
-                simwse[counter] = tmpwse
-                measwse[counter] = line[2]
-                print(cellid, line[2], tmpwse)
-            self.meas_and_sim_wse_var[:, index0+1, index1+1] = simwse
-            self.rmse_var_data[index0, index1] = self.rmse(simwse, measwse)
-            self.cd0_var_vals[index0, index1] = cd0
-            self.cd1_var_vals[index0, index1] = cd1
-            # print(self.rmse_var_data[index0,index1])
-            # print(self.cd_val)
-            # print(self.rmse_data)
-            trmse = np.column_stack((self.cd0_var_vals.flatten(), self.cd1_var_vals.flatten(), self.rmse_var_data.flatten()))
-            print(trmse)
-
-            np.savetxt(self.rmse_file, trmse, delimiter=',')
-            # np.savetxt(self.meas_vs_sim_file, self.meas_and_sim_wse_var, delimiter=',')
-            return self.rmse_var_data
-            # next(self.stat_numcalpts)
-
-    def update_var2(self, cnt, tcd, q = 0):
+    def update_var(self, cnt, tcd, q=0):
         if not self.stat_init:
             print('Error: call initialize() before update()')
         else:
@@ -184,11 +140,11 @@ class  fm_cal:
                 simwse[counter] = tmpwse
                 measwse[counter] = line[2]
                 print(cellid, line[2], tmpwse)
-            self.resdf.loc[cnt,self.dfcols[0]] = cnt
+            self.resdf.loc[cnt, self.dfcols[0]] = cnt
             for key in tcd:
-                self.resdf.loc[cnt,self.dfcols[int(key+1)]] = tcd[key]
-            self.resdf.loc[cnt,'rmse'] = self.rmse(simwse, measwse)
-            self.resdf.loc[cnt,'Discharge'] = self.Q
+                self.resdf.loc[cnt, self.dfcols[int(key + 1)]] = tcd[key]
+            self.resdf.loc[cnt, 'rmse'] = self.rmse(simwse, measwse)
+            self.resdf.loc[cnt, 'Discharge'] = self.Q
 
             # trmse = np.column_stack((self.cd0_var_vals.flatten(), self.cd1_var_vals.flatten(), self.rmse_var_data.flatten()))
             # print(trmse)
@@ -197,7 +153,6 @@ class  fm_cal:
             self.resdf.to_csv(self.rmse_file)
             # np.savetxt(self.meas_vs_sim_file, self.meas_and_sim_wse_var, delimiter=',')
             return self.resdf
-
 
     def update_const(self, index, tcd):
         if not self.stat_init:
@@ -347,7 +302,6 @@ class  fm_cal:
         velx_data = velx_grp[u' data']
         vely_data = vely_grp[u' data']
 
-
         # SGrid = vtk.vtkStructuredGrid()
         ny, nx, = xcoord_data.shape
         # print(ny, nx)
@@ -365,8 +319,8 @@ class  fm_cal:
                                        ycoord_data[j, i] - self.yoffset, 0.0)
                 wseVal.InsertNextValue(wse_data[j, i])
                 ibcVal.InsertNextValue(ibc_data[j, i])
-                velVal.InsertNextValue(np.sqrt(np.power(velx_data[j, i],2)
-                                               + np.power(vely_data[j,i],2)))
+                velVal.InsertNextValue(np.sqrt(np.power(velx_data[j, i], 2)
+                                               + np.power(vely_data[j, i], 2)))
             sgrid.SetPoints(points)
 
             sgrid.GetPointData().AddArray(wseVal)
